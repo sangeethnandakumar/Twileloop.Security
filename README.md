@@ -19,7 +19,7 @@ Install-Package Twileloop.ExpressData -Version 1.0.0
 ### Versions
 Version Information
 | Version | Change log
-| ------ | ------ | ------ |
+| ------ | ------
 | v1.1 | Supports SHA Hashing, BCript Hashing, AES Encription, RSA Encription
 
 ### Repository Contents
