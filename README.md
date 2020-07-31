@@ -10,10 +10,10 @@ Express Security is light weight and easy to use and supports .NET Core platform
 
 ### Package Manager
 The library is available free on NuGet
-https://www.nuget.org/packages/Twileloop.ExpressData
+https://www.nuget.org/packages/Twileloop.ExpressSecurity
 
 ```nuget
-Install-Package Twileloop.ExpressData -Version 1.0.0
+Install-Package Twileloop.ExpressSecurity -Version 1.0.0
 ```
 
 ### Versions
