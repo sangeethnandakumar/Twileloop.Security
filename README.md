@@ -6,7 +6,7 @@ The latest version of ExpressSecurity abstracts 2 popular hashing and 2 popular 
 
 Express Security is light weight and easy to use and supports .NET Core platform
 
-![alt text](https://lh3.googleusercontent.com/proxy/B_7eIUlcSWIhijMsKkvsKeB4sv5ZqG8cOGXyWFKIrIAgPlQTL_RyHreEs5bCSthMBUgPzIuifuFL89mIzpZfMhA)
+![alt text](https://d585tldpucybw.cloudfront.net/sfimages/default-source/productsimages/justmock/justmock__net_770.png?sfvrsn=b4522579_1)
 
 ### Package Manager
 The library is available free on NuGet
