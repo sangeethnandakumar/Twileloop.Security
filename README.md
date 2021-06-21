@@ -1,78 +1,90 @@
-# Express.Security
+# ProWebAPI
+ASP.NET Core API with all proper standards
 
-Express Security is an easy to use wrapper for security implementations inside your .NET applications.
+### Standards Implemented
+| Name | Description
+| ------ | ------
+| Standard Response | Implementation of a standard response pattern for DTO and internal
+| Versioning | Implementation of a standard response pattern for DTO and internal
 
-The latest version of ExpressSecurity abstracts 2 popular hashing and 2 popular encription mechanism that can be used anywhere on your application. With lot of ease. APIs exposed and clear consistant and designed for quick usage.
+### Swagger
+Install Swagger
+```
+Swashbuckle.AspNetCore
+```
+Setup DI
+```
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProWebAPI", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
+        }
 
-Express Security is light weight and easy to use and supports .NET Core platform
-
-![alt text](https://d585tldpucybw.cloudfront.net/sfimages/default-source/productsimages/justmock/justmock__net_770.png?sfvrsn=b4522579_1)
-
-### Package Manager
-The library is available free on NuGet
-https://www.nuget.org/packages/Twileloop.ExpressSecurity
-
-```nuget
-Install-Package Twileloop.ExpressSecurity -Version 1.0.0
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProWebAPI v1"));
+            }
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseAuthorization();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+        }
 ```
 
-### Versions
-Version Information
-| Version | Change log
-| ------ | ------
-| v1.1 | Supports SHA Hashing, BCript Hashing, AES Encription, RSA Encription
+### Versioning
+Install Nuget library
+```nuget
+    Microsoft.AspNetCore.Mvc.Versioning
+```
+Add to dependency container
+```
+   services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+```
+Decorate the controllers base on the need
+```
+    [ApiController]
+    [ApiVersion("1.0")]
+    [ApiVersion("2.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    public class StudentsController : ControllerBase
+    {
+        [HttpGet]
+        [MapToApiVersion("1.0")]
+        [Route("Success")]
+        public Response Success()
+        {
+        }
+        
+        [HttpGet]
+        [MapToApiVersion("2.0")]
+        [Route("Success")]
+        public Response Success20()
+        {
+        }
+
+        [HttpGet]
+        [Route("Failure")]
+        public Response Failure()
+        {
+        }
+    }
+```
 
 ### Repository Contents
 This repo maintains 2 projects. The main library and a demo project to implement it
-
-### PreRequesties
-No prerequesties to run the demo. Buld it and run it
-
-
-### Usage
-### SHA256 and SHA512 Hashing
-Express Encript wrapper currently supports 2 Hashing modules. SHA and BCript based on Blowfish algorithm
-```csharp
-var password = "sangeeth123";
-
-var hashText1 = Hashing.SHA256(password);
-var hashText2 = Hashing.SHA512(password);
-```
-### BCript Hashing + (With Salt and Work Factor)
-BCript is designed over blowfish algorithm. Express Security wraps its complexities and exposes an easy to use API
-```csharp
-var password = "sangeeth123";
-var workFactor = 13;
-
-var salt = BlowFishHashing.GenerateSalt(int.Parse(workFactor));
-var hashText = BlowFishHashing.HashString(password, salt);
-```
-### AES File Encription/Description
-AES is an symetric key encription. Which means the file will be encripted using a key and descripted using the same key. AES is suted for locking files. It mostly is used for file encriptions
-Express Security wraps AES security with simple API
-```csharp
-var filePassword = "sangeeth123";
-var inputPath = "C:\sample.txt";
-var outputPath = "C:\sample.txt.aes";
-
-//AES Encription
-AESEncription.AES_Encrypt(inputPath, password);
-//AES Description
-AESEncription.AES_Decrypt(outputPath, password);
-```
-### RSA Text Encription/Description
-RSA is an asymetric key encription. Which means the text will be encripted using a public key and descripted using a private key. RSA is suted for sending sensitive data. It mostly is used for key/string encriptions
-Express Security wraps RSA security with simple API
-```csharp
-var input = "sangeeth"
-var publicKeyPath = "C:\public_key.rsa";
-var privateKeyPath = "C:\private_key.rsa";
-
-//Generate Keys
-RSAEncription.MakeKey(publicKeyPath, privateKeyPath);
-
-//RSA Encription
-var ciphertext = RSAEncription.EncryptString(input, publicKeyPath);
-//RSA Description
-input = RSAEncription.DecryptString(ciphertext, privateKeyPath);
-```
