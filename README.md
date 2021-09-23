@@ -1,5 +1,7 @@
 # Express.Security
 
+### PLEASE GIVE A ⭐ STAR TO THIS REPO IF YOU LIKE THIS
+
 Express Security is an easy to use wrapper for security implementations inside your .NET applications.
 
 The latest version of ExpressSecurity abstracts 2 popular hashing and 2 popular encription mechanism that can be used anywhere on your application. With lot of ease. APIs exposed and clear consistant and designed for quick usage.
