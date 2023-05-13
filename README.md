@@ -5,8 +5,12 @@
     <img src="https://iili.io/HUE81eI.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h2 align="center"> Twileloop Security </h2>
+  <h2 align="center"> Twileloop.Security </h2>
   <h4 align="center"> Encode | Encrypt | Hash </h4>
+  
+  > **Note**
+> ***Formly known as Twileloop.ExpressSecurity***
+  
 </div>
 
 ## About
