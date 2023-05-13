@@ -37,13 +37,13 @@ dotnet add package Twileloop.Security
 
 | Encoding Algorithms | Encryption Algorithms | Hashing Algorithms
 | ---      | ---       | ---
-| ASCII | AES | MD5
-| UTF-8 | RSA | SHA1
-| Base64 | | SHA256
-| Hex | | SHA3
-| Binary | | Blake2
-| | | BCrypt
-| | | Argon2
+| ✅ ASCII | ✅ AES | ✅ MD5
+| ✅ UTF-8 | ✅ RSA | ✅ SHA1
+| ✅ Base64 | | ✅ SHA256
+| ✅ Hex | | ✅ SHA3
+| ✅ Binary | | ✅ Blake2
+| | | ✅ BCrypt
+| | | ✅ Argon2
 
 
 ## 2. Encode/Decode Text
