@@ -1,7 +1,7 @@
 ﻿using Konscious.Security.Cryptography;
 using System.Text;
 
-namespace Twileloop.Security.Abstractions.Hashing
+namespace Twileloop.Security.Hashing
 {
     public static class Argon2Algorithm
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Twileloop.Security.Abstractions.Encoding
+namespace Twileloop.Security.Encoding
 {
     public static class BinaryEncoder
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Twileloop.Security.Abstractions.Encoding
+namespace Twileloop.Security.Encoding
 {
     public static class HexEncoder
     {

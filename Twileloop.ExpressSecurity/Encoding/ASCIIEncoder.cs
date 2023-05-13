@@ -1,6 +1,6 @@
-﻿namespace Twileloop.Security.Abstractions.Encoding
+﻿namespace Twileloop.Security.Encoding
 {
-    public static class ASCIIEncoder 
+    public static class ASCIIEncoder
     {
         public static string Encode(string plainText)
         {

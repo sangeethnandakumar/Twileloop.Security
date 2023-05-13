@@ -2,7 +2,7 @@
 using Org.BouncyCastle.Crypto.Digests;
 using System.Text;
 
-namespace Twileloop.Security.Abstractions.Hashing
+namespace Twileloop.Security.Hashing
 {
     public static class Blake2DigestAlgorithm
     {

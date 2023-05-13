@@ -2,7 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Twileloop.Security.Abstractions.Encryption
+namespace Twileloop.Security.Encryption
 {
     public static class AESAlgorithm
     {
@@ -19,7 +19,7 @@ namespace Twileloop.Security.Abstractions.Encryption
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
                 byte[] encryptedBytes;
-                using (var ms = new System.IO.MemoryStream())
+                using (var ms = new MemoryStream())
                 using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                 {
                     byte[] plaintextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
@@ -46,7 +46,7 @@ namespace Twileloop.Security.Abstractions.Encryption
 
                 byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
                 byte[] decryptedBytes;
-                using (var ms = new System.IO.MemoryStream())
+                using (var ms = new MemoryStream())
                 using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Write))
                 {
                     cs.Write(encryptedBytes, 0, encryptedBytes.Length);

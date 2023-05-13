@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
 
-namespace Twileloop.Security.Abstractions.Encryption
+namespace Twileloop.Security.Encryption
 {
     public class RSAAlgorithm
     {
@@ -12,7 +12,7 @@ namespace Twileloop.Security.Abstractions.Encryption
         {
             byte[] plaintextBytes = System.Text.Encoding.UTF8.GetBytes(plaintext);
 
-            using (System.Security.Cryptography.RSA rsa = System.Security.Cryptography.RSA.Create())
+            using (RSA rsa = RSA.Create())
             {
                 rsa.ImportParameters(publicKey);
                 byte[] encryptedBytes = rsa.Encrypt(plaintextBytes, RSAEncryptionPadding.OaepSHA256);
@@ -25,7 +25,7 @@ namespace Twileloop.Security.Abstractions.Encryption
         {
             byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
 
-            using (System.Security.Cryptography.RSA rsa = System.Security.Cryptography.RSA.Create())
+            using (RSA rsa = RSA.Create())
             {
                 rsa.ImportParameters(privateKey);
                 byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
@@ -91,7 +91,7 @@ namespace Twileloop.Security.Abstractions.Encryption
 
         public static void MakeRSAKeyPairs(out RSAParameters publicKey, out RSAParameters privateKey)
         {
-            using (System.Security.Cryptography.RSA rsa = System.Security.Cryptography.RSA.Create())
+            using (RSA rsa = RSA.Create())
             {
                 publicKey = rsa.ExportParameters(false); // Export public key parameters
                 privateKey = rsa.ExportParameters(true); // Export private key parameters

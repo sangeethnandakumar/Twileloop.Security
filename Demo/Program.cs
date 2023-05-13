@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
-using Twileloop.Security.Abstractions.Encoding;
-using Twileloop.Security.Abstractions.Encryption;
-using Twileloop.Security.Abstractions.Hashing;
+using Twileloop.Security.Encoding;
+using Twileloop.Security.Encryption;
+using Twileloop.Security.Hashing;
 
 namespace Demo
 {
