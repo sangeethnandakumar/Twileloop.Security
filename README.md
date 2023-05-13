@@ -1,80 +1,129 @@
-# Express.Security
+﻿<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/sangeethnandakumar/Twileloop.Security">
+    <img src="https://iili.io/HUE81eI.png" alt="Logo" width="80" height="80">
+  </a>
 
-### ❤️ MARK YOUR SUCCESS BY LEAVING A ⭐ STAR TO THIS REPOSITORY IF IT HELPS YOU ... ❤️
+  <h2 align="center"> Twileloop Security </h2>
+  <h4 align="center"> Encode | Encrypt | Hash </h4>
+</div>
 
-Express Security is an easy to use wrapper for security implementations inside your .NET applications.
+## About
+An all in one library that centralizes multiple algorithms for encoding, encrypting and hashing in one place to be used anywhere within seconds.
 
-The latest version of ExpressSecurity abstracts 2 popular hashing and 2 popular encription mechanism that can be used anywhere on your application. With lot of ease. APIs exposed and clear consistant and designed for quick usage.
+> **Note**
+> ***Starting from version v1.2 and above, This is the official documentation. For older versions, Refer old documentation <a href="https://github.com/sangeethnandakumar/Twileloop.Security/blob/master/README_Old.md">
+    here
+  </a>***
 
-Express Security is light weight and easy to use and supports .NET Core platform
+## License
+> Twileloop.Security is licensed under the MIT License. See the LICENSE file for more details.
 
-![alt text](https://d585tldpucybw.cloudfront.net/sfimages/default-source/productsimages/justmock/justmock__net_770.png?sfvrsn=b4522579_1)
+#### This library is absolutely free. If it gives you a smile, A small coffee would be a great way to support my work. Thank you for considering it!
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sangeethnanda)
 
-### Package Manager
-The library is available free on NuGet
-https://www.nuget.org/packages/Twileloop.ExpressSecurity
 
-```nuget
-Install-Package Twileloop.ExpressSecurity -Version 1.0.0
+## 1. Install Core Package
+```bash
+dotnet add package Twileloop.Security
 ```
 
-### Versions
-Version Information
-| Version | Change log
-| ------ | ------
-| v1.1 | Supports SHA Hashing, BCript Hashing, AES Encription, RSA Encription
+### Supported Algorithms
 
-### Repository Contents
-This repo maintains 2 projects. The main library and a demo project to implement it
+| Encoding Algorithms | Encryption Algorithms | Hashing Algorithms
+| ---      | ---       | ---
+| ASCII | AES | MD5
+| UTF-8 | RSA | SHA1
+| Base64 | | SHA256
+| Hex | | SHA3
+| Binary | | Blake2
+| | | BCrypt
+| | | Argon2
 
-### PreRequesties
-No prerequesties to run the demo. Buld it and run it
 
+## 2. Encode/Decode Text
+Encode or decode text in multiple supported formats
 
-### Usage
-### SHA256 and SHA512 Hashing
-Express Encript wrapper currently supports 2 Hashing modules. SHA and BCript based on Blowfish algorithm
 ```csharp
-var password = "sangeeth123";
+    //Encoding Algorithms
+    //-------------------------------
 
-var hashText1 = Hashing.SHA256(password);
-var hashText2 = Hashing.SHA512(password);
+    //1. ASCII
+    var data1 = ASCIIEncoder.Encode("English");
+    var data2 = ASCIIEncoder.Decode(data1);
+    
+    //2. UTF-8
+    var data3 = UTF8Encoder.Encode("മലയാളം");
+    var data4 = UTF8Encoder.Decode(data3);
+    
+    //3. Base64
+    var data5 = Base64Encoder.Encode("मैं तुमसे प्यार करता हूँ");
+    var data6 = Base64Encoder.Decode(data5);
+    
+    //4. Hex
+    var data7 = HexEncoder.Encode("أنا ذاهب");
+    var data8 = HexEncoder.Decode(data7);
+    
+    //5. Binary
+    var data9 = BinaryEncoder.Encode("நான் உன்னை அன்புக்குரியேன்");
+    var data10 = BinaryEncoder.Decode(data9);
 ```
-### BCript Hashing + (With Salt and Work Factor)
-BCript is designed over blowfish algorithm. Express Security wraps its complexities and exposes an easy to use API
-```csharp
-var password = "sangeeth123";
-var workFactor = 13;
 
-var salt = BlowFishHashing.GenerateSalt(int.Parse(workFactor));
-var hashText = BlowFishHashing.HashString(password, salt);
+## 3. Encrypt/Decrypt Text or File
+Encrypt or decrypt text or file in multiple supported formats
+
+```csharp
+    //Encryption Algorithms
+    //-------------------------------
+    
+    //1. AES (Text)
+    var aesEncryptedData = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
+    var aesDecryptedData = AESAlgorithm.DecryptText(aesEncryptedData, key: "1234", iv: "1234567890123456");
+    
+    //1. AES (File)
+    AESAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_aes_encrypted.aes", key: "1234", iv: "1234567890123456");
+    AESAlgorithm.DecryptFile(@"D:\data_aes_encrypted.aes", @"D:\data_aes_decrypted.txt", key: "1234", iv: "1234567890123456");
+
+    //-------------------------------
+
+    //Prerequasite for RSA
+    RSAAlgorithm.MakeRSAKeyPairs(out RSAParameters publicKey, out RSAParameters privateKey);
+    
+    //2. RSA (Text)    
+    var rsaEncryptedData = RSAAlgorithm.EncryptText("Twileloop", publicKey);
+    var rsaDecryptedData = RSAAlgorithm.DecryptText(rsaEncryptedData, privateKey);
+    
+    //1. RSA (File)
+    RSAAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_rsa_encrypted.rsa", publicKey);
+    RSAAlgorithm.DecryptFile(@"D:\data_rsa_encrypted.rsa", @"D:\data_rsa_decrypted.txt", privateKey);
 ```
-### AES File Encription/Description
-AES is an symetric key encription. Which means the file will be encripted using a key and descripted using the same key. AES is suted for locking files. It mostly is used for file encriptions
-Express Security wraps AES security with simple API
+
+## 4. Hash Text
+Hash text in multiple supported formats
+
 ```csharp
-var filePassword = "sangeeth123";
-var inputPath = "C:\sample.txt";
-var outputPath = "C:\sample.txt.aes";
+    // Hashing Algorithms
+    //-------------------------------
 
-//AES Encription
-AESEncription.AES_Encrypt(inputPath, password);
-//AES Description
-AESEncription.AES_Decrypt(outputPath, password);
-```
-### RSA Text Encription/Description
-RSA is an asymetric key encription. Which means the text will be encripted using a public key and descripted using a private key. RSA is suted for sending sensitive data. It mostly is used for key/string encriptions
-Express Security wraps RSA security with simple API
-```csharp
-var input = "sangeeth"
-var publicKeyPath = "C:\public_key.rsa";
-var privateKeyPath = "C:\private_key.rsa";
-
-//Generate Keys
-RSAEncription.MakeKey(publicKeyPath, privateKeyPath);
-
-//RSA Encription
-var ciphertext = RSAEncription.EncryptString(input, publicKeyPath);
-//RSA Description
-input = RSAEncription.DecryptString(ciphertext, privateKeyPath);
+    //1 - MD5
+    var hash1 = MD5Algorithm.Hash("Sangeeth Nandakumar");
+    
+    //2 - SHA1
+    var hash2 = SHAAlgorithm.HashUsingSHA1("Sangeeth Nandakumar");
+    
+    //3 - SHA256 
+    var hash3 = SHAAlgorithm.HashUsingSHA256("Sangeeth Nandakumar");
+    
+    //4 - SHA3 
+    var hash4 = SHAAlgorithm.HashUsingSHA3("Sangeeth Nandakumar");
+    
+    //5 - Blake2 
+    var hash5 = Blake2DigestAlgorithm.Hash("Sangeeth Nandakumar");
+    
+    //6 - BCrypt 
+    var hash7 = BCryptAlgorithm.Hash("Sangeeth Nandakumar", workFactor: 11);
+    
+    //7 - Argon2
+    var hash8 = Argon2Algorithm.Hash("Sangeeth Nandakumar", byteSize: 32, iterations: 1, memorySizeKB: 4096, degreeOfParallelism: 1);
 ```
