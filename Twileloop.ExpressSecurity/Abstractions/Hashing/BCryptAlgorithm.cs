@@ -1,6 +1,4 @@
-﻿using Twileloop.Security.Abstractions.Hashing.Base;
-
-namespace Twileloop.Security.Abstractions.Hashing
+﻿namespace Twileloop.Security.Abstractions.Hashing
 {
     public static class BCryptAlgorithm
     {

@@ -1,7 +1,6 @@
 ﻿using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Digests;
 using System.Text;
-using Twileloop.Security.Abstractions.Hashing.Base;
 
 namespace Twileloop.Security.Abstractions.Hashing
 {

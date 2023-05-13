@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using Twileloop.Security.Abstractions.Encoding.Base;
 
 namespace Twileloop.Security.Abstractions.Encoding
 {

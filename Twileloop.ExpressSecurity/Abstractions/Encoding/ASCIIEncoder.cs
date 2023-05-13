@@ -1,6 +1,4 @@
-﻿using Twileloop.Security.Abstractions.Encoding.Base;
-
-namespace Twileloop.Security.Abstractions.Encoding
+﻿namespace Twileloop.Security.Abstractions.Encoding
 {
     public static class ASCIIEncoder 
     {

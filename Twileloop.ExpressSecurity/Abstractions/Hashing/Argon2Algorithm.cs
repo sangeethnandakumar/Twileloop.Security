@@ -1,6 +1,5 @@
 ﻿using Konscious.Security.Cryptography;
 using System.Text;
-using Twileloop.Security.Abstractions.Hashing.Base;
 
 namespace Twileloop.Security.Abstractions.Hashing
 {
