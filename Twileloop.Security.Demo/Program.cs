@@ -9,7 +9,7 @@ namespace Demo
     {
         static void Main(string[] args)
         {
-            //A. Encodings
+            // Encodings
             //-------------------------------
             //1. ASCII
             var data1 = ASCIIEncoder.Encode("English");
@@ -34,7 +34,7 @@ namespace Demo
 
 
 
-            //A. Encryptions
+            // Encryptions
             //-------------------------------
             //1 - AES (Advanced Encryption Standard)
             var aesEncryptedData = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
@@ -50,7 +50,7 @@ namespace Demo
             RSAAlgorithm.DecryptFile(@"D:\data_rsa_encrypted.rsa", @"D:\data_rsa_decrypted.txt", privateKey);
 
 
-            //A. Hashing
+            // Hashing
             //-------------------------------
             //1 - MD5
             var hash1 = MD5Algorithm.Hash("Sangeeth Nandakumar");
