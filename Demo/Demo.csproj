@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Twileloop.ExpressSecurity\Twileloop.Security.csproj" />
+    <ProjectReference Include="..\Twileloop.Security\Twileloop.Security.csproj" />
   </ItemGroup>
 
 </Project>
