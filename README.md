@@ -77,28 +77,27 @@ Encode or decode text in multiple supported formats
 ## 3. Encrypt/Decrypt Text or File
 Encrypt or decrypt text or file in multiple supported formats
 
+#### AES
 ```csharp
-    //Encryption Algorithms
-    //-------------------------------
-    
     //1. AES (Text)
     var aesEncryptedData = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
     var aesDecryptedData = AESAlgorithm.DecryptText(aesEncryptedData, key: "1234", iv: "1234567890123456");
     
-    //1. AES (File)
+    //2. AES (File)
     AESAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_aes_encrypted.aes", key: "1234", iv: "1234567890123456");
     AESAlgorithm.DecryptFile(@"D:\data_aes_encrypted.aes", @"D:\data_aes_decrypted.txt", key: "1234", iv: "1234567890123456");
+```
 
-    //-------------------------------
-
-    //Prerequasite for RSA
+#### RSA
+```csharp
+    //Make Keys
     RSAAlgorithm.MakeRSAKeyPairs(out RSAParameters publicKey, out RSAParameters privateKey);
     
-    //2. RSA (Text)    
+    //1. RSA (Text)    
     var rsaEncryptedData = RSAAlgorithm.EncryptText("Twileloop", publicKey);
     var rsaDecryptedData = RSAAlgorithm.DecryptText(rsaEncryptedData, privateKey);
     
-    //1. RSA (File)
+    //2. RSA (File)
     RSAAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_rsa_encrypted.rsa", publicKey);
     RSAAlgorithm.DecryptFile(@"D:\data_rsa_encrypted.rsa", @"D:\data_rsa_decrypted.txt", privateKey);
 ```
