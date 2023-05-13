@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<Nullable>enable</Nullable>
+		<LangVersion>9.0</LangVersion>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<Title>Twileloop.SpreadSheet</Title>
+		<Authors>Twileloop, Sangeeth Nandakumar</Authors>
+		<PackageProjectUrl>https://github.com/sangeethnandakumar/Twileloop.SpreadSheet</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/sangeethnandakumar/Twileloop.SpreadSheet</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>spreadsheet, excel, googlesheet</PackageTags>
+		<Description>
+			A highly extensible and generic package provides a simple and straightforward approach to read, write, copy, and move data across various spreadsheet formats.
+			Seamlessly integrate with popular spreadsheet drivers and take control of your data simple and effortlessly
+		</Description>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="logo.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="BCrypt" Version="1.0.0" />
+		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+		<PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.0" />
+		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />
+		<PackageReference Include="System.Text.Json" Version="7.0.2" />
+	</ItemGroup>
+
+</Project>
