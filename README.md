@@ -14,10 +14,10 @@
 </div>
 
 ## About
-An all in one library that centralizes multiple algorithms for encoding, encrypting and hashing in one place to be used anywhere in the code.
+An all in one library that centralizes multiple algorithms for encoding, encrypting and hashing in one place to be used anywhere in your code.
 
 > **Note**
-> ***Starting from version v1.2 and above, This is the official documentation. For older versions, Refer old documentation <a href="https://github.com/sangeethnandakumar/Twileloop.Security/blob/master/README_Old.md">
+> ***Starting from version v2.0+ and above, This is the official documentation. For older versions, Refer old documentation <a href="https://github.com/sangeethnandakumar/Twileloop.Security/blob/master/README_Old.md">
     here
   </a>***
 
