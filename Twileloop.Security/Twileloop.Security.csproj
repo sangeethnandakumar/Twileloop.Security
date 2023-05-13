@@ -5,15 +5,16 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>9.0</LangVersion>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
-		<Title>Twileloop.SpreadSheet</Title>
+		<Title>Twileloop.Security</Title>
 		<Authors>Twileloop, Sangeeth Nandakumar</Authors>
-		<PackageProjectUrl>https://github.com/sangeethnandakumar/Twileloop.SpreadSheet</PackageProjectUrl>
-		<RepositoryUrl>https://github.com/sangeethnandakumar/Twileloop.SpreadSheet</RepositoryUrl>
+		<PackageProjectUrl>https://github.com/sangeethnandakumar/Twileloop.Security</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/sangeethnandakumar/Twileloop.Security</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageTags>spreadsheet, excel, googlesheet</PackageTags>
+		<PackageTags>encodings, encryptions, hashing, ascii, base64, binary, hex, utf8, aes, rsa, argon2, bccrypt, blake2D, md5, sha</PackageTags>
 		<Description>
-			A highly extensible and generic package provides a simple and straightforward approach to read, write, copy, and move data across various spreadsheet formats.
-			Seamlessly integrate with popular spreadsheet drivers and take control of your data simple and effortlessly
+			A comprehensive library offering a wide range of security features, including various encoding schemes (ASCII, UTF-8, Base64, Hex, Binary), 
+			encryption algorithms (AES, RSA), and hashing techniques (MD5, SHA, BCrypt, Argon2, Blake2D).
+			This NuGet package is an all-in-one solution for encoding, encrypting, and hashing data in your .NET applications.
 		</Description>
 		<PackageIcon>logo.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
@@ -35,7 +36,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="BCrypt" Version="1.0.0" />
 		<PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
 		<PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.0" />
 		<PackageReference Include="Portable.BouncyCastle" Version="1.9.0" />

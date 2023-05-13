@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33617.297
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Twileloop.Security", "Twileloop.Security\Twileloop.Security.csproj", "{DF396ACE-B195-49EB-90BC-572CE8C86B3A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", "{2A0E62E9-4ECC-4C42-9C63-FE1FE99FDE4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Twileloop.Security.Demo\Twileloop.Security.Demo.csproj", "{2A0E62E9-4ECC-4C42-9C63-FE1FE99FDE4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
