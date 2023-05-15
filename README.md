@@ -7,10 +7,7 @@
 
   <h2 align="center"> Twileloop.Security </h2>
   <h4 align="center"> Encode | Encrypt | Hash </h4>
-  
-  > **Note**
-> ***Formly known as Twileloop.ExpressSecurity***
-  
+
 </div>
 
 ## About
