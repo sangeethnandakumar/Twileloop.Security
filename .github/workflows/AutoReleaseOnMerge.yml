@@ -1,0 +1,65 @@
+name: Auto Release
+
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get pull request information
+        id: pr_info
+        run: echo "::set-output name=base_ref::${{ github.event.pull_request.base.ref }}"
+        if: github.event_name == 'pull_request'
+      
+      - name: Check if pull request merged with master
+        id: check_master_merge
+        run: echo "::set-output name=merged::${{ contains(coalesce(steps.pr_info.outputs.base_ref, '') , 'master') }}"
+      
+      - name: Get latest release
+        id: get_latest_release
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: releases } = await github.repos.listReleases({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              per_page: 1,
+            });
+            const latestRelease = releases[0];
+            const latestVersion = latestRelease.tag_name;
+            const majorVersion = parseInt(latestVersion.substring(1));
+            const newVersion = `v${majorVersion + 1}.0`;
+            core.setOutput('latest_version', latestVersion);
+            core.setOutput('new_version', newVersion);
+
+      - name: Create Release
+        if: steps.check_master_merge.outputs.merged == 'true' && (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_latest_release.outputs.new_version }}
+          release_name: Release ${{ steps.get_latest_release.outputs.new_version }}
+          body: |
+            Changes since ${steps.get_latest_release.outputs.latest_version}:
+            ${{ steps.get_latest_release.outputs.commit_messages }}
+          draft: false
+          prerelease: false
+
+      - name: Get commit messages
+        id: get_commit_messages
+        if: steps.check_master_merge.outputs.merged == 'true' && (github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch')
+        run: |
+          git fetch --unshallow --tags
+          previous_version=$(git describe --abbrev=0 --tags)
+          commit_messages=$(git log --pretty=format:"%s" ${previous_version}..HEAD)
+          echo "::set-output name=commit_messages::${commit_messages}"
