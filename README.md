@@ -10,10 +10,6 @@
 
 </div>
 
-Read full integration guide: https://packages.twileloop.com/Twileloop.Security
-
-More trusted packages from Twileloop: https://packages.twileloop.com
-
 ## About
 An all in one library that centralizes multiple algorithms for encoding, encrypting and hashing in one place to be used anywhere in your code.
 
