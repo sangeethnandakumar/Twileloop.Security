@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using Twileloop.Security.Encoding;
 using Twileloop.Security.Encryption;
 using Twileloop.Security.Hashing;
@@ -35,17 +36,33 @@ namespace Demo
 
 
             // Encryptions
-            //-------------------------------
+
+            var text = "Sangeeth Nandakumar";
+            var textAsBytes = System.Text.Encoding.UTF8.GetBytes(text);
+
+
             //1 - AES (Advanced Encryption Standard)
-            var aesEncryptedData = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
-            var aesDecryptedData = AESAlgorithm.DecryptText(aesEncryptedData, key: "1234", iv: "1234567890123456");
+            //--------------------------------------
+            //Raw Bytes
+            var aesEncryptedBytes = AESAlgorithm.EncryptBytes(textAsBytes, key: "1234", iv: "1234567890123456");
+            var aesDecryptedBytes = AESAlgorithm.DecryptBytes(aesEncryptedBytes, key: "1234", iv: "1234567890123456");
+            //Text
+            var aesEncryptedString = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
+            var aesDecryptedString = AESAlgorithm.DecryptText(aesEncryptedString, key: "1234", iv: "1234567890123456");
+            //File
             AESAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_aes_encrypted.aes", key: "1234", iv: "1234567890123456");
             AESAlgorithm.DecryptFile(@"D:\data_aes_encrypted.aes", @"D:\data_aes_decrypted.txt", key: "1234", iv: "1234567890123456");
 
-            //2 - RSA
+            //2 - RSA (Rivest-Shamir-Adleman)
+            //--------------------------------------
             RSAAlgorithm.MakeRSAKeyPairs(out RSAParameters publicKey, out RSAParameters privateKey);
-            var rsaEncryptedData = RSAAlgorithm.EncryptText("Twileloop", publicKey);
-            var rsaDecryptedData = RSAAlgorithm.DecryptText(rsaEncryptedData, privateKey);
+            //Raw Bytes
+            var rsaEncryptedBytes = RSAAlgorithm.EncryptBytes(textAsBytes, publicKey);
+            var rsaDecryptedBytes = RSAAlgorithm.DecryptBytes(rsaEncryptedBytes, privateKey);
+            //Text
+            var rsaEncryptedText = RSAAlgorithm.EncryptText("Twileloop", publicKey);
+            var rsaDecryptedText = RSAAlgorithm.DecryptText(rsaEncryptedText, privateKey);
+            //File
             RSAAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_rsa_encrypted.rsa", publicKey);
             RSAAlgorithm.DecryptFile(@"D:\data_rsa_encrypted.rsa", @"D:\data_rsa_decrypted.txt", privateKey);
 
