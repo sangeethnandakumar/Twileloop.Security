@@ -6,57 +6,62 @@ namespace Twileloop.Security.Encryption
 {
     public static class AESAlgorithm
     {
-        public static string EncryptText(string plainText, string key, string iv)
+        public static byte[] EncryptBytes(byte[] rawData, string key, string iv)
         {
-            using (Aes aes = Aes.Create())
+            using (var aes = Aes.Create())
             {
                 byte[] keyBytes = DeriveKeyFromPassphrase(key, aes.KeySize / 8);
                 byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
-
                 aes.Key = keyBytes;
                 aes.IV = ivBytes;
-
                 ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
-
                 byte[] encryptedBytes;
                 using (var ms = new MemoryStream())
                 using (var cs = new CryptoStream(ms, encryptor, CryptoStreamMode.Write))
                 {
-                    byte[] plaintextBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
-                    cs.Write(plaintextBytes, 0, plaintextBytes.Length);
+                    cs.Write(rawData, 0, rawData.Length);
                     cs.FlushFinalBlock();
                     encryptedBytes = ms.ToArray();
                 }
-
-                return Convert.ToBase64String(encryptedBytes);
+                return encryptedBytes;
             }
+        }
+
+        public static byte[] DecryptBytes(byte[] encryptedData, string key, string iv)
+        {
+            using (var aes = Aes.Create())
+            {
+                byte[] keyBytes = DeriveKeyFromPassphrase(key, aes.KeySize / 8);
+                byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
+                aes.Key = keyBytes;
+                aes.IV = ivBytes;
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                using (var ms = new MemoryStream(encryptedData))
+                using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Read))
+                {
+                    using (var decryptedMs = new MemoryStream())
+                    {
+                        cs.CopyTo(decryptedMs);
+                        return decryptedMs.ToArray();
+                    }
+                }
+            }
+        }
+
+        public static string EncryptText(string plainText, string key, string iv)
+        {
+            var inputAsBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+            var outputAsBytes = EncryptBytes(inputAsBytes, key, iv);
+            return Convert.ToBase64String(outputAsBytes);
         }
 
         public static string DecryptText(string encryptedText, string key, string iv)
         {
-            using (Aes aes = Aes.Create())
-            {
-                byte[] keyBytes = DeriveKeyFromPassphrase(key, aes.KeySize / 8);
-                byte[] ivBytes = System.Text.Encoding.UTF8.GetBytes(iv);
-
-                aes.Key = keyBytes;
-                aes.IV = ivBytes;
-
-                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
-
-                byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
-                byte[] decryptedBytes;
-                using (var ms = new MemoryStream())
-                using (var cs = new CryptoStream(ms, decryptor, CryptoStreamMode.Write))
-                {
-                    cs.Write(encryptedBytes, 0, encryptedBytes.Length);
-                    cs.FlushFinalBlock();
-                    decryptedBytes = ms.ToArray();
-                }
-
-                return System.Text.Encoding.UTF8.GetString(decryptedBytes);
-            }
+            var inputAsBytes = Convert.FromBase64String(encryptedText);
+            var outputAsBytes = DecryptBytes(inputAsBytes, key, iv);
+            return System.Text.Encoding.UTF8.GetString(outputAsBytes);
         }
+
 
         private static byte[] DeriveKeyFromPassphrase(string passphrase, int keySize)
         {

@@ -8,30 +8,36 @@ namespace Twileloop.Security.Encryption
 {
     public class RSAAlgorithm
     {
-        public static string EncryptText(string plaintext, RSAParameters publicKey)
+        public static byte[] EncryptBytes(byte[] rawBytes, RSAParameters publicKey)
         {
-            byte[] plaintextBytes = System.Text.Encoding.UTF8.GetBytes(plaintext);
-
             using (RSA rsa = RSA.Create())
             {
                 rsa.ImportParameters(publicKey);
-                byte[] encryptedBytes = rsa.Encrypt(plaintextBytes, RSAEncryptionPadding.OaepSHA256);
-
-                return Convert.ToBase64String(encryptedBytes);
+                byte[] encryptedBytes = rsa.Encrypt(rawBytes, RSAEncryptionPadding.OaepSHA256);
+                return encryptedBytes;
             }
+        }
+
+        public static byte[] DecryptBytes(byte[] encryptedBytes, RSAParameters privateKey)
+        {
+            using (RSA rsa = RSA.Create())
+            {
+                rsa.ImportParameters(privateKey);
+                byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
+                return decryptedBytes;
+            }
+        }
+
+        public static string EncryptText(string plaintext, RSAParameters publicKey)
+        {
+            byte[] plaintextBytes = System.Text.Encoding.UTF8.GetBytes(plaintext);
+            return Convert.ToBase64String(EncryptBytes(plaintextBytes, publicKey));
         }
 
         public static string DecryptText(string encryptedText, RSAParameters privateKey)
         {
             byte[] encryptedBytes = Convert.FromBase64String(encryptedText);
-
-            using (RSA rsa = RSA.Create())
-            {
-                rsa.ImportParameters(privateKey);
-                byte[] decryptedBytes = rsa.Decrypt(encryptedBytes, RSAEncryptionPadding.OaepSHA256);
-
-                return System.Text.Encoding.UTF8.GetString(decryptedBytes);
-            }
+            return System.Text.Encoding.UTF8.GetString(DecryptBytes(encryptedBytes, privateKey));
         }
 
         public static void EncryptFile(string inputFile, string outputFile, RSAParameters publicKey)

@@ -14,5 +14,4 @@
             return System.Text.Encoding.UTF8.GetString(encodedBytes);
         }
     }
-
 }
