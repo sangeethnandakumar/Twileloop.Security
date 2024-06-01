@@ -2,122 +2,147 @@
 layout: default
 ---
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+## About
+An all in one library that centralizes multiple algorithms for encoding, encrypting and hashing in one place to be used anywhere in your code.
 
-[Link to another page](./another-page.html).
+> **Note**
+> ***Starting from version v2.0+ and above, This is the official documentation. For older versions, Refer old documentation <a href="https://github.com/sangeethnandakumar/Twileloop.Security/blob/master/README_Old.md">
+    here
+  </a>***
 
-There should be whitespace between paragraphs.
+## License
+> Twileloop.Security is licensed under the MIT License. See the LICENSE file for more details.
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+#### This library is absolutely free. If it gives you a smile, A small coffee would be a great way to support my work. Thank you for considering it!
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/sangeethnanda)
 
-# Header 1
 
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
+## 1. Install Package
+```bash
+dotnet add package Twileloop.Security
 ```
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
+### Supported Algorithms
+
+| Encoding Algorithms
+| ---      
+| ✅ ASCII
+| ✅ UTF-8
+| ✅ Base64
+| ✅ Hex
+| ✅ Binary
+
+| Encryption Algorithms 
+| ---      
+| ✅ AES
+| ✅ RSA
+
+| Hashing Algorithms
+| ---      
+| ✅ MD5
+| ✅ SHA1
+| ✅ SHA256
+| ✅ SHA3
+| ✅ Blake2
+| ✅ BCrypt
+| ✅ Argon2
+
+
+## 2. Encode/Decode Text
+Encode or decode text in multiple supported formats
+
+```csharp
+    //Encoding Algorithms
+    //-------------------------------
+
+    //1. ASCII
+    var data1 = ASCIIEncoder.Encode("English");
+    var data2 = ASCIIEncoder.Decode(data1);
+    
+    //2. UTF-8
+    var data3 = UTF8Encoder.Encode("മലയാളം");
+    var data4 = UTF8Encoder.Decode(data3);
+    
+    //3. Base64
+    var data5 = Base64Encoder.Encode("मैं तुमसे प्यार करता हूँ");
+    var data6 = Base64Encoder.Decode(data5);
+    
+    //4. Hex
+    var data7 = HexEncoder.Encode("أنا ذاهب");
+    var data8 = HexEncoder.Decode(data7);
+    
+    //5. Binary
+    var data9 = BinaryEncoder.Encode("நான் உன்னை அன்புக்குரியேன்");
+    var data10 = BinaryEncoder.Decode(data9);
 ```
 
-#### Header 4
+## 3. Encrypt/Decrypt Text or File
+Encrypt or decrypt text or files in multiple supported formats.
 
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
+> Encrypt as Bytes, String, or even File
 
-##### Header 5
+#### AES
+```csharp
+  var text = "Sangeeth Nandakumar";
+  var textAsBytes = System.Text.Encoding.UTF8.GetBytes(text);
 
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
-
-###### Header 6
-
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
-
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+   //1 - AES (Advanced Encryption Standard)
+   //--------------------------------------
+   //Raw Bytes
+   var aesEncryptedBytes = AESAlgorithm.EncryptBytes(textAsBytes, key: "1234", iv: "1234567890123456");
+   var aesDecryptedBytes = AESAlgorithm.DecryptBytes(aesEncryptedBytes, key: "1234", iv: "1234567890123456");
+   //Text
+   var aesEncryptedString = AESAlgorithm.EncryptText("Twileloop", key: "1234", iv: "1234567890123456");
+   var aesDecryptedString = AESAlgorithm.DecryptText(aesEncryptedString, key: "1234", iv: "1234567890123456");
+   //File
+   AESAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_aes_encrypted.aes", key: "1234", iv: "1234567890123456");
+   AESAlgorithm.DecryptFile(@"D:\data_aes_encrypted.aes", @"D:\data_aes_decrypted.txt", key: "1234", iv: "1234567890123456");
 ```
 
+#### RSA
+```csharp
+  var text = "Sangeeth Nandakumar";
+  var textAsBytes = System.Text.Encoding.UTF8.GetBytes(text);
+
+  //2 - RSA (Rivest-Shamir-Adleman)
+  //--------------------------------------
+  RSAAlgorithm.MakeRSAKeyPairs(out RSAParameters publicKey, out RSAParameters privateKey);
+  //Raw Bytes
+  var rsaEncryptedBytes = RSAAlgorithm.EncryptBytes(textAsBytes, publicKey);
+  var rsaDecryptedBytes = RSAAlgorithm.DecryptBytes(rsaEncryptedBytes, privateKey);
+  //Text
+  var rsaEncryptedText = RSAAlgorithm.EncryptText("Twileloop", publicKey);
+  var rsaDecryptedText = RSAAlgorithm.DecryptText(rsaEncryptedText, privateKey);
+  //File
+  RSAAlgorithm.EncryptFile(@"D:\data.txt", @"D:\data_rsa_encrypted.rsa", publicKey);
+  RSAAlgorithm.DecryptFile(@"D:\data_rsa_encrypted.rsa", @"D:\data_rsa_decrypted.txt", privateKey);
 ```
-The final element.
+
+## 4. Hash Text
+Hash text in multiple supported formats
+
+```csharp
+    // Hashing Algorithms
+    //-------------------------------
+
+    //1 - MD5
+    var hash1 = MD5Algorithm.Hash("Sangeeth Nandakumar");
+    
+    //2 - SHA1
+    var hash2 = SHAAlgorithm.HashUsingSHA1("Sangeeth Nandakumar");
+    
+    //3 - SHA256 
+    var hash3 = SHAAlgorithm.HashUsingSHA256("Sangeeth Nandakumar");
+    
+    //4 - SHA3 
+    var hash4 = SHAAlgorithm.HashUsingSHA3("Sangeeth Nandakumar");
+    
+    //5 - Blake2 
+    var hash5 = Blake2DigestAlgorithm.Hash("Sangeeth Nandakumar");
+    
+    //6 - BCrypt 
+    var hash7 = BCryptAlgorithm.Hash("Sangeeth Nandakumar", workFactor: 11);
+    
+    //7 - Argon2
+    var hash8 = Argon2Algorithm.Hash("Sangeeth Nandakumar", byteSize: 32, iterations: 1, memorySizeKB: 4096, degreeOfParallelism: 1);
 ```
